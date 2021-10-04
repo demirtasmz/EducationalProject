@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
+    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="NLog.Config" Version="4.7.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EducationalProject.Business\EducationalProject.Business.csproj" />
+    <ProjectReference Include="..\EducationalProject.Repository\EducationalProject.Repository.csproj" />
+    <ProjectReference Include="..\EducationalProject.Utilities\EducationalProject.Utilities.csproj" />
+  </ItemGroup>
+
+
+</Project>
