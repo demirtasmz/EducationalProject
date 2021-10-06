@@ -14,9 +14,9 @@ namespace EducationalProject.Business.Interface
 
         IResult Add(Product product);
 
-        void Update(Product product);
+        IResult Update(Product product);
 
-        void Delete(int productId);
+        IResult Delete(int productId);
 
 
     }

@@ -61,18 +61,28 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpPut]
         [Route("Update")]
-        //[Log]
-        public void Update(Product product)
+        [Log]
+        public IActionResult Update(Product product)
         {
-            _productBusiness.Update(product);
+            var result = _productBusiness.Update(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
         [HttpDelete]
         [Route("Delete/{productId}")]
-       // [Log]
-        public void Delete(int productid)
+        [Log]
+        public IActionResult Delete(int productid)
         {
-            _productBusiness.Delete(productid);
+            var result = _productBusiness.Delete(productid);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

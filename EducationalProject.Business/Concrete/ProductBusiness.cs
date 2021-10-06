@@ -9,13 +9,11 @@ namespace EducationalProject.Business.Concrete
 {
     public class ProductBusiness : IProductBusiness
     {
-    IProductRepository _productRepository;
-
+        IProductRepository _productRepository;
         public ProductBusiness(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
-
         public IResult Add(Product product)
         {
             try
@@ -27,27 +25,29 @@ namespace EducationalProject.Business.Concrete
             {
                 return new ErrorResult("Ürün Eklenmedi");
             }
-        }   
-
-        public void Delete(int productId)
+        } 
+        public IResult Delete(int productId)
         {
-            var product = _productRepository.Get(p => p.ProductId == productId);
-            _productRepository.Delete(product);
-
+            try
+            {
+                var product = _productRepository.Get(p => p.ProductId == productId);
+                _productRepository.Delete(product);
+                return new SuccessResult("Ürün Silindi");
+            }
+            catch (Exception)
+            {
+                return new ErrorResult("Ürün Silinemedi");
+            }
         }
-
         public List<Product> GetAll()
         {
             return _productRepository.GetAll();
         }
-
         public List<Product> GetAllByCategoryId(int categoryId)
         {
             return _productRepository.GetAll(p => p.CategoryId == categoryId);
         }
-
         public IDataResult<Product> GetById(int productId)
-     
         {
             var product = _productRepository.Get(p => p.ProductId == productId);
 
@@ -57,11 +57,17 @@ namespace EducationalProject.Business.Concrete
             }
             return new ErrorDataResult<Product>(product, "Ürün Bulunamadı");
         }
-
-        public void Update(Product product)
+        public IResult Update(Product product)
         {
-            _productRepository.Update(product);
-
+            try
+            {
+                _productRepository.Update(product);
+                return new SuccessResult("Ürün Güncellendi");
+            }
+            catch (Exception)
+            {
+                return new ErrorResult("Ürün Güncellenemedi");
+            }
         }
     }
 }

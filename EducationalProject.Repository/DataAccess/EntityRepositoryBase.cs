@@ -44,7 +44,7 @@ namespace EducationalProject.Repository.DataAccess
             }
         }
 
-        public TEntity Get(Expression<Func<TEntity,bool>> filter = null)
+        public TEntity Get(Expression<Func<TEntity,bool>> filter)
         {
             using(TContext context = new TContext())
             {

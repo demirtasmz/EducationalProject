@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using NLog;
+using System;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
 namespace EducationalProject.WebApi.Utilities
 {
