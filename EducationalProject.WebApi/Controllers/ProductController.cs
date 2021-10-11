@@ -1,13 +1,15 @@
-using System.Collections.Generic;
 using EducationalProject.Business.Interface;
 using EducationalProject.Repository.Entity;
 using EducationalProject.WebApi.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace EducationalProject.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         IProductBusiness _productBusiness;

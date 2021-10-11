@@ -36,7 +36,7 @@ namespace EducationalProject.Business.Concrete
             }
             catch (Exception)
             {
-                return new ErrorResult("Ürün Silinemedi");
+                return new ErrorResult("Ürün Silinmedi");
             }
         }
         public List<Product> GetAll()
@@ -66,7 +66,7 @@ namespace EducationalProject.Business.Concrete
             }
             catch (Exception)
             {
-                return new ErrorResult("Ürün Güncellenemedi");
+                return new ErrorResult("Ürün Güncellenmedi");
             }
         }
     }
