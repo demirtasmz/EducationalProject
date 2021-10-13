@@ -1,12 +1,14 @@
 ﻿using EducationalProject.Business.Interface;
-using System.Collections.Generic;
 using EducationalProject.Repository.Entity;
 using EducationalProject.Repository.Interface;
 using EducationalProject.Utilities.Results;
 using System;
+using System.Collections.Generic;
 
 namespace EducationalProject.Business.Concrete
 {
+
+
     public class ProductBusiness : IProductBusiness
     {
         IProductRepository _productRepository;
@@ -14,6 +16,7 @@ namespace EducationalProject.Business.Concrete
         {
             _productRepository = productRepository;
         }
+
         public IResult Add(Product product)
         {
             try

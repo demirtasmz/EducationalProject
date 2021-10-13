@@ -9,7 +9,6 @@ namespace EducationalProject.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ProductController : ControllerBase
     {
         IProductBusiness _productBusiness;
@@ -22,6 +21,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpGet]
         [Route("GetAll")]
         [Log]
+        [Authorize]
         public List<Product> GetAll()
         {
             return _productBusiness.GetAll();
@@ -30,6 +30,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpGet]
         [Route("GetByCategoryId/{categoryId}")]
         [Log]
+        [Authorize]
         public List<Product> GetByCategoryId(int categoryId)
         {
             return _productBusiness.GetAllByCategoryId(categoryId);
@@ -38,6 +39,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpGet]
         [Route("GetById/{productId}")]
         [Log]
+        [Authorize]
         public IActionResult GetByID(int productId)
         {
             var result = _productBusiness.GetById(productId);
@@ -51,6 +53,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpPost]
         [Route("Add")]
         [Log]
+        [Authorize(Roles = "admin,moderator,product.add")]
         public IActionResult Add(Product product)
         {
             var result = _productBusiness.Add(product);
@@ -64,6 +67,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpPut]
         [Route("Update")]
         [Log]
+        [Authorize(Roles = "admin,moderator,product.update")]
         public IActionResult Update(Product product)
         {
             var result = _productBusiness.Update(product);
@@ -77,6 +81,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpDelete]
         [Route("Delete/{productId}")]
         [Log]
+        [Authorize(Roles = "admin,moderator,product.delete")]
         public IActionResult Delete(int productid)
         {
             var result = _productBusiness.Delete(productid);

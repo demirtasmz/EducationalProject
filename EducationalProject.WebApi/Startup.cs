@@ -1,26 +1,30 @@
-﻿using System;
-using System.Text;
-using EducationalProject.Business.Concrete;
+﻿using EducationalProject.Business.Concrete;
 using EducationalProject.Business.Interface;
+using EducationalProject.Business.Utilities;
 using EducationalProject.Repository.Interface;
 using EducationalProject.Repository.Repository;
+using EducationalProject.Utilities.Security.Encryption;
+using EducationalProject.Utilities.Security.Jwt;
 using EducationalProject.WebApi.Utilities;
+using EducationalProject.WebApi.Utilities.Security.Jwt;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
 
 namespace EducationalProject.WebApi
 {
 
     public class Startup
     {
-        private const string SECRET_KEY = "mysecretkey123mysecretkey123";
-        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY));
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,22 +37,22 @@ namespace EducationalProject.WebApi
         {
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "JwtBearer";
-                options.DefaultChallengeScheme = "JwtBearer";
-            }).AddJwtBearer("JwtBearer", jwtOptions =>
-            {
-                jwtOptions.TokenValidationParameters = new TokenValidationParameters()
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    IssuerSigningKey = SIGNING_KEY,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = "http://localhost:44312",
-                    ValidAudience = "http://localhost:44312",
-                    ValidateLifetime = true
-                };
-            });
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                    };
+                });
 
             services.AddMvc(options =>
             {
@@ -71,8 +75,20 @@ namespace EducationalProject.WebApi
                  );
 
             services.AddScoped<IProductBusiness, ProductBusiness>();
+
             services.AddScoped<IProductRepository, ProductRepository>();
 
+            services.AddScoped<IUserBusiness, UserBusiness>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IAuthBusiness, AuthBusiness>();
+
+            services.AddScoped<ITokenHelper, JwtHelper>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            ServiceTool.Create(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
