@@ -19,8 +19,6 @@ namespace EducationalProject.Business.Concrete
         public List<OperationClaim> GetClaims(User user)
         {
             return _userRepository.GetClaims(user);
-
-           
         }
          
         public IResult Add(User user)

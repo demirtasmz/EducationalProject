@@ -81,7 +81,7 @@ namespace EducationalProject.WebApi.Controllers
         [HttpDelete]
         [Route("Delete/{productId}")]
         [Log]
-        [Authorize(Roles = "admin,moderator,product.delete")]
+        [Authorize(Roles ="admin,moderator,product.delete")]
         public IActionResult Delete(int productid)
         {
             var result = _productBusiness.Delete(productid);

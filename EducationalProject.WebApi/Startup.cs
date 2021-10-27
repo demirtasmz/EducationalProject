@@ -18,7 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Text;
+using System.Web.Mvc;
 
 namespace EducationalProject.WebApi
 {
@@ -57,6 +57,7 @@ namespace EducationalProject.WebApi
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(LogAttribute));
+                
             });
 
             services.AddSwaggerGen(config =>
