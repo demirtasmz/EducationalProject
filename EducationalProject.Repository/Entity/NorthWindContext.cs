@@ -6,7 +6,7 @@ namespace EducationalProject.Repository.Entity
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=localhost;Database=Northwind;Trusted_Connection=true;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=false");
+           //optionsBuilder.UseSqlServer(@"Server=localhost;Database=Northwind;Trusted_Connection=true;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=false");
            optionsBuilder.UseSqlServer(@"Server=localhost;Database=Northwind;Trusted_Connection=True;");
 
         }
