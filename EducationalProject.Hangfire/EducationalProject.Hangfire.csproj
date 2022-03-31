@@ -7,6 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Hangfire" Version="1.7.25" />
     <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="NLog.Config" Version="4.7.12" />
+    <PackageReference Include="Nlog.RabbitMQ.Target" Version="2.7.7" />
   </ItemGroup>
 
   <ItemGroup>

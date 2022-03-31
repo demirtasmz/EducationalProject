@@ -3,9 +3,9 @@ using EducationalProject.Business.Interface;
 using EducationalProject.Business.Utilities;
 using EducationalProject.Repository.Interface;
 using EducationalProject.Repository.Repository;
+using EducationalProject.Utilities.Logging;
 using EducationalProject.Utilities.Security.Encryption;
 using EducationalProject.Utilities.Security.Jwt;
-using EducationalProject.WebApi.Utilities;
 using EducationalProject.WebApi.Utilities.Security.Jwt;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +17,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog;
 using System;
+using System.IO;
 
 namespace EducationalProject.WebApi
 {
@@ -27,6 +29,7 @@ namespace EducationalProject.WebApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/Nlog.config"));
         }
 
         public IConfiguration Configuration { get; }
@@ -37,6 +40,12 @@ namespace EducationalProject.WebApi
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(LogAttribute));
+
+            });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -53,11 +62,7 @@ namespace EducationalProject.WebApi
                     };
                 });
 
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(LogAttribute));
-                
-            });
+           
 
             services.AddSwaggerGen(config =>
                 config.SwaggerDoc("v1", new OpenApiInfo

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using NLog;
 
 namespace EducationalProject.WebApi
 {
@@ -8,6 +9,7 @@ namespace EducationalProject.WebApi
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            //LogManager.Shutdown();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

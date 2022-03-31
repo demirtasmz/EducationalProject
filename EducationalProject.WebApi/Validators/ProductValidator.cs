@@ -1,5 +1,4 @@
-﻿using System;
-using EducationalProject.Repository.Entity;
+﻿using EducationalProject.Repository.Entity;
 using FluentValidation;
 
 namespace EducationalProject.WebApi.Validators

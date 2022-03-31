@@ -1,5 +1,4 @@
-﻿using EducationalProject.WebApi.Utilities;
-using Hangfire;
+﻿using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -11,7 +10,7 @@ namespace EducationalProject.Hangfire.Controllers
     {
         [HttpPost]
         [Route("[action]")]
-        [Log]
+        //[Log]
         public IActionResult Welcome(string userName)
         {
             var jobId = BackgroundJob.Enqueue(() => SendWelcomeMail(userName));
@@ -26,7 +25,7 @@ namespace EducationalProject.Hangfire.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [Log]
+        //[Log]
         public IActionResult DelayedWelcome(string userName)
         {
             var jobId = BackgroundJob.Schedule(() => SendDelayedWelcomeMail(userName), TimeSpan.FromMinutes(1));
@@ -40,7 +39,7 @@ namespace EducationalProject.Hangfire.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        [Log]
+        //[Log]
         public IActionResult Daily()
         {
             RecurringJob.AddOrUpdate(() => DailyReminder(), "0 25 9 ? * MON-FRI", TimeZoneInfo.Local);
@@ -49,12 +48,12 @@ namespace EducationalProject.Hangfire.Controllers
 
         public void DailyReminder()
         {
-            //Logic to Mail the user
+            //Logic to reminder
             Console.WriteLine("Here is your reminder");
         }
         [HttpPost]
         [Route("[action]")]
-        [Log]
+        //[Log]
         public IActionResult Unsubscribe(string userName)
         {
             var jobId = BackgroundJob.Enqueue(() => UnsubscribeUser(userName));

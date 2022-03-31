@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EducationalProject.Business\EducationalProject.Business.csproj" />
     <ProjectReference Include="..\EducationalProject.Repository\EducationalProject.Repository.csproj" />
+    <ProjectReference Include="..\EducationalProject.Utilities\EducationalProject.Utilities.csproj" />
   </ItemGroup>
 
 

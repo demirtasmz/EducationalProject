@@ -1,6 +1,7 @@
 ﻿using EducationalProject.Business.Interface;
 using EducationalProject.Repository.Entity;
 using EducationalProject.Repository.Interface;
+using EducationalProject.Utilities.Logging;
 using EducationalProject.Utilities.Results;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace EducationalProject.Business.Concrete
         {
             return _userRepository.GetClaims(user);
         }
-         
+        [Log]
         public IResult Add(User user)
         {
             try
@@ -33,7 +34,7 @@ namespace EducationalProject.Business.Concrete
                 return new ErrorResult("Kullanıcı Eklenmedi");
             }
         }
-
+        [Log]
         public User GetByMail(string email)
         {
             return _userRepository.Get(u => u.Email == email);

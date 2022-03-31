@@ -1,6 +1,6 @@
 using EducationalProject.Business.Interface;
 using EducationalProject.Repository.Entity;
-using EducationalProject.WebApi.Utilities;
+using EducationalProject.Utilities.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        [Log]
+        //[Log]
         [Authorize]
         public List<Product> GetAll()
         {
@@ -29,7 +29,7 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpGet]
         [Route("GetByCategoryId/{categoryId}")]
-        [Log]
+        //[Log]
         [Authorize]
         public List<Product> GetByCategoryId(int categoryId)
         {
@@ -38,7 +38,7 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpGet]
         [Route("GetById/{productId}")]
-        [Log]
+        //[Log]
         [Authorize]
         public IActionResult GetByID(int productId)
         {
@@ -52,7 +52,7 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpPost]
         [Route("Add")]
-        [Log]
+        //[Log]
         [Authorize(Roles = "admin,moderator,product.add")]
         public IActionResult Add(Product product)
         {
@@ -66,7 +66,7 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpPut]
         [Route("Update")]
-        [Log]
+        //[Log]
         [Authorize(Roles = "admin,moderator,product.update")]
         public IActionResult Update(Product product)
         {
@@ -80,7 +80,7 @@ namespace EducationalProject.WebApi.Controllers
 
         [HttpDelete]
         [Route("Delete/{productId}")]
-        [Log]
+        //[Log]
         [Authorize(Roles ="admin,moderator,product.delete")]
         public IActionResult Delete(int productid)
         {

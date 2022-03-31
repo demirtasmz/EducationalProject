@@ -1,6 +1,7 @@
 ﻿using EducationalProject.Business.Interface;
 using EducationalProject.Repository.Entity;
 using EducationalProject.Repository.Entity.Dtos;
+using EducationalProject.Utilities.Logging;
 using EducationalProject.Utilities.Results;
 using EducationalProject.Utilities.Security.Hashing;
 using EducationalProject.Utilities.Security.Jwt;
@@ -17,7 +18,7 @@ namespace EducationalProject.Business.Concrete
             _userBusiness = userService;
             _tokenHelper = tokenHelper;
         }
-
+        [Log]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -34,7 +35,7 @@ namespace EducationalProject.Business.Concrete
             _userBusiness.Add(user);
             return new SuccessDataResult<User>(user, "Kullanıcı başarıyla eklendi");
         }
-
+        [Log]
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userBusiness.GetByMail(userForLoginDto.Email);
@@ -50,7 +51,7 @@ namespace EducationalProject.Business.Concrete
 
             return new SuccessDataResult<User>(userToCheck,"Giriş başarıyla sağlandı");
         }
-
+        [Log]
         public IResult UserExists(string email)
         {
             if (_userBusiness.GetByMail(email) != null)
@@ -59,7 +60,7 @@ namespace EducationalProject.Business.Concrete
             }
             return new SuccessResult();
         }
-
+        [Log]
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
             var claims = _userBusiness.GetClaims(user);
